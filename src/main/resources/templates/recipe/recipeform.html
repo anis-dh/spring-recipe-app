@@ -64,10 +64,15 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Difficulty:</label>
-                                    <select class="form-control">
-                                        <option>Easy</option>
-                                        <option>Medium</option>
-                                        <option>Hard</option>
+                                    <select class="form-control" th:field="*{difficulty}">
+                                        <option th:each="difficultyValue : ${T(com.spring.recipe.app.domain.Difficulty).values()}"
+                                                th:value="${difficultyValue.name()}"
+                                                th:text="${difficultyValue.name()}">-</option>
+                                    </select>
+                                    <select class="form-control" th:remove="all">
+                                        <option> </option>
+                                        <option> </option>
+                                        <option> </option>
                                     </select>
                                 </div>
                             </div>
@@ -95,7 +100,7 @@
                                 </div>
                                 <div class="col-md-1">
                                     <a class="btn btn-default" href="#" role="button">View</a>
-                                    <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
+                                    <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">Update</a>
                                 </div>
                             </div>
                         </div>
