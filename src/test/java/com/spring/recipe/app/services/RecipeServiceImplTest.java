@@ -19,6 +19,7 @@ import com.spring.recipe.app.commands.RecipeCommand;
 import com.spring.recipe.app.converters.RecipeCommandToRecipe;
 import com.spring.recipe.app.converters.RecipeToRecipeCommand;
 import com.spring.recipe.app.domain.Recipe;
+import com.spring.recipe.app.exceptions.NotFoundException;
 import com.spring.recipe.app.repositories.RecipeRepository;
 
 public class RecipeServiceImplTest {
@@ -106,6 +107,18 @@ public class RecipeServiceImplTest {
 
     // then
     verify(recipeRepository, times(1)).deleteById(anyLong());
+  }
+
+  @Test(expected = NotFoundException.class)
+  public void getRecipeByIdTestNotFound() throws Exception {
+
+    Optional<Recipe> recipeOptional = Optional.empty();
+
+    when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+    Recipe recipeReturned = recipeService.findById(1L);
+
+    // should go boom
   }
 
 }
